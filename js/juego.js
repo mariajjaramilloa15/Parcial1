@@ -96,8 +96,10 @@ function intento(letra) {
   } else {
     cont--;
     document.getElementById("intentos").innerHTML = cont;
-    document.getElementById("acierto").innerHTML = "Fallo!";
+    document.getElementById("cabeza").innerHTML = "Fallo!";
     document.getElementById("acierto").className += "acierto rojo";
+    
+    document.getElementById("Canvas").innerHTML = DrawCirculo;
     //document.getElementById("image"+cont).className += "fade-in";
   }
   compruebaFin();
@@ -154,3 +156,119 @@ function inicio() {
 
 // Iniciar
 window.onload = inicio();
+
+
+//INTENTO DE CANVAS
+
+var Ahorcado = function(con)
+{
+  //this es las variables locales de la clase, accesibles en toda la clase
+  //this.contexto es el context de dibujo del canvas, que llega por parametro
+  //desde la variable con
+  this.contexto = con;
+  this.maximo = 7;
+  this.intentos = 0;
+  this.vivo = true;
+
+  this.dibujar();
+}
+Ahorcado.prototype.dibujar = function()
+{
+
+  var dibujar = this.contexto
+  
+  // Poste
+  dibujar.beginPath();
+  dibujar.poste = new Image();
+  dibujar.poste.src = "palo.png";
+  dibujar.poste.onload = dibujoPost;
+  function dibujoPost()
+  {
+    dibujar.drawImage(dibujar.poste, 160, 0);
+  }
+  dibujar.closePath();
+
+  if(this.intentos > 0)
+  {
+    // Rostro
+    dibujar.beginPath();
+    dibujar.cabeza = new Image();
+    dibujar.cabeza.src = "cabeza-android.png";
+    dibujar.cabeza.onload = dibujoCab;
+    function dibujoCab()
+    {
+      dibujar.drawImage(dibujar.cabeza, 220, 30);
+    }
+    dibujar.closePath();
+
+    if(this.intentos > 1)
+    {
+      // Cuerpo
+      dibujar.beginPath();
+      dibujar.cuerpo = new Image();
+      dibujar.cuerpo.src = "cuerpo-android.png";
+      dibujar.cuerpo.onload = dibujoCuerp;
+      function dibujoCuerp()
+      {
+        dibujar.drawImage(dibujar.cuerpo, 220, 100);
+      }
+      dibujar.closePath();
+
+      if(this.intentos > 2) 
+      {
+        // Brazo derecho
+        dibujar.beginPath();
+        dibujar.brazo1 = new Image();
+        dibujar.brazo1.src = "brazo-derecho.png";
+        dibujar.brazo1.onload = dibujoBrazoDer;
+        function dibujoBrazoDer()
+        {
+          dibujar.drawImage(dibujar.brazo1, 190, 110);
+        }
+        dibujar.closePath();
+
+        if(this.intentos > 3)
+        {
+          // Brazo izquierdo
+          dibujar.beginPath();
+          dibujar.brazo2 = new Image();
+          dibujar.brazo2.src = "brazo-izquierdo.png";
+          dibujar.brazo2.onload = dibujoBrazoIzq;
+          function dibujoBrazoIzq()
+          {
+            dibujar.drawImage(dibujar.brazo2, 330, 110);
+          }
+          dibujar.closePath();
+
+          if(this.intentos > 4)
+          {
+            // Pierna derecha
+            dibujar.beginPath();
+            dibujar.pierna1 = new Image();
+            dibujar.pierna1.src = "pierna-derecha.png";
+            dibujar.pierna1.onload = dibujoPiernaDer;
+            function dibujoPiernaDer()
+            {
+              dibujar.drawImage(dibujar.pierna1, 230, 200);
+            }
+            dibujar.closePath();
+
+            if(this.intentos > 5)
+            {
+              // Pierna izquierda
+              dibujar.beginPath();
+              dibujar.pierna2 = new Image();
+              dibujar.pierna2.src = "pierna-izquierda.png";
+              dibujar.pierna2.onload = dibujoPiernaIzq;
+              function dibujoPiernaIzq()
+              {
+                dibujar.drawImage(dibujar.pierna2, 285, 200);
+              }
+                dibujar.closePath();
+            }
+          }
+        }
+      }
+    }
+  }
+} 
